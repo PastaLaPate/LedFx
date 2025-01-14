@@ -103,6 +103,14 @@ WLED_CONFIG_SCHEMA = vol.Schema(
     dict(map(wled_optional_generator, _default_wled_settings.items()))
 )
 
+QUIET_SCENE_CONFIG_SCHEMA = vol.Schema(
+    {
+        vol.Optional("scene", description="Id of the quiet scene", default=""):str,
+        vol.Optional("activation", description="Cutoff below which the quiet scene will be activated or deactivated", default=.1):float,
+        vol.Optional("activation_time", description="The seconds needed to be passed with or without audio to switch between quiet and the last used scene", default=3):float
+    }
+)
+
 CORE_CONFIG_SCHEMA = vol.Schema(
     {
         vol.Optional("host", default="0.0.0.0"): str,
@@ -117,7 +125,6 @@ CORE_CONFIG_SCHEMA = vol.Schema(
         vol.Optional("ledfx_presets", default={}): dict,
         vol.Optional("user_presets", default={}): dict,
         vol.Optional("scenes", default={}): dict,
-        vol.Optional("quiet_scene", default=""): str,
         vol.Optional("integrations", default=[]): list,
         vol.Optional("transmission_mode", default="compressed"): vol.In(
             Transmission.get_list()
