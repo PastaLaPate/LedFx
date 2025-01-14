@@ -432,6 +432,7 @@ class AudioInputSource:
         # time_start = time.time()
         # self._raw_audio_sample = np.frombuffer(in_data, dtype=np.float32)
         raw_sample = np.frombuffer(in_data, dtype=np.float32)
+        # TODO: QUIET SCENE Implementation
 
         in_sample_len = len(raw_sample)
         out_sample_len = MIC_RATE // self._config["sample_rate"]

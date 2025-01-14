@@ -17,6 +17,7 @@ class Scenes:
     def __init__(self, ledfx):
         self._ledfx = ledfx
         self._scenes = self._ledfx.config["scenes"]
+        self._quiet_scene = self._ledfx.config["quiet_scene"]
 
         def virtuals_validator(virtual_ids):
             return list(
@@ -58,6 +59,7 @@ class Scenes:
 
     def save_to_config(self):
         self._ledfx.config["scenes"] = self._scenes
+        self._ledfx.config["quit_scene"] = self._quiet_scene
         save_config(
             config=self._ledfx.config,
             config_dir=self._ledfx.config_dir,
@@ -87,6 +89,14 @@ class Scenes:
 
         # Update the scene if it already exists, else create it
         self._scenes[scene_id] = scene_config
+        self.save_to_config()
+    
+    def set_quiet_scene(self, scene_id):
+        scene = self.get(scene_id)
+        if not scene:
+            _LOGGER.error(f"No scene found with id: {scene_id}")
+            return
+        self._quiet_scene = scene_id
         self.save_to_config()
 
     def activate(self, scene_id):
@@ -132,3 +142,6 @@ class Scenes:
 
     def get(self, *args):
         return self._scenes.get(*args)
+    
+    def get_quiet_scene(self):
+        return self._quiet_scene

@@ -117,6 +117,7 @@ CORE_CONFIG_SCHEMA = vol.Schema(
         vol.Optional("ledfx_presets", default={}): dict,
         vol.Optional("user_presets", default={}): dict,
         vol.Optional("scenes", default={}): dict,
+        vol.Optional("quiet_scene", default=""): str,
         vol.Optional("integrations", default=[]): list,
         vol.Optional("transmission_mode", default="compressed"): vol.In(
             Transmission.get_list()
