@@ -78,8 +78,9 @@ jobs:
           mv loopback/libportaudio64bit.dll dist/LedFx/_internal/_sounddevice_data/portaudio-binaries/libportaudio64bit.dll
 
       - name: Create installer
+        shell: cmd
         run: |
-          cd installer && makensis //DPRODUCT_VERSION=${{ steps.ledfx-version.outputs.ledfx-version }} ledfx.nsi
+          cd ${{ github.workspace }}/installer && makensis //DPRODUCT_VERSION=${{ steps.ledfx-version.outputs.ledfx-version }} ledfx.nsi
       - name: Upload LedFx Binary
         uses: actions/upload-artifact@v4
         if: always()
